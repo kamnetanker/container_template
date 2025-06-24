@@ -1,0 +1,12 @@
+server {
+    listen ${HTTP_PORT};
+
+    server_name ${DOMAIN};
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html; 
+    }
+    ${SSL_CONFIG}
+
+}
