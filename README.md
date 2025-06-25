@@ -58,12 +58,14 @@
 server {
     listen ${LISTEN_ADDR}:${HTTP_PORT};
     server_name ${DOMAIN};
+    
+    # HTTPS-блок (подставляется через SSL_CONFIG)
+    ${SSL_CONFIG}
 
     # HTTP → HTTPS (если включён SSL_MODE != no)
     location / {
         root /usr/share/nginx/html;
-        index index.html;
-        try_files $uri $uri/ =404;
+        index index.html; 
     }
 
     # Пример возврата 403 для /dev
@@ -71,8 +73,6 @@ server {
         return 403 "Forbidden";
     }
 
-    # HTTPS-блок (подставляется через SSL_CONFIG)
-    ${SSL_CONFIG}
 }
 ```
 
@@ -96,7 +96,7 @@ html/
 
 > **Без гарантий**.  
 > Этот проект обновляется и поддерживается по моему собственному желанию и в свободное время.  
-> Используйте на свой страх и риск, внося изменения под ваши задачи.
+> Используйте внося изменения под ваши задачи.
 
 ---
 
