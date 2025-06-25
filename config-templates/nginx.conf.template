@@ -1,5 +1,7 @@
 server {
-    listen ${HTTP_PORT};
+    listen ${LISTEN_ADDR}:${HTTP_PORT};
+
+    ${SSL_CONFIG}
 
     server_name ${DOMAIN};
  
@@ -7,9 +9,8 @@ server {
         root /usr/share/nginx/html;
         index index.html;
     }
-
-    ${SSL_CONFIG}
+    
     location /dev/ {
         return 403 "Forbidden";
     }
-}
+} 

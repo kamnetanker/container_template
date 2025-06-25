@@ -10,7 +10,7 @@ services:
       DOMAIN: dev.ibch.ru
       # HTTP_PORT: 80
       # HTTPS_PORT: 443
-      # SSL_MODE: self     # варианты: no, self, certbot
+      # SSL_MODE: no     # варианты: no, self, certbot
       # CERT_DAYS: 365
       # LISTEN_ADDR: 0.0.0.0
       # EMAIL: certbot@gmail.com # почта для обновления сертификатов, если установлен режим certbot

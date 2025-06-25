@@ -1,12 +1,14 @@
 server {
-    listen ${HTTP_PORT};
+    listen ${LISTEN_ADDR}:${HTTP_PORT};
 
     server_name ${DOMAIN};
+
+
+    ${SSL_CONFIG}
 
     location / {
         root /usr/share/nginx/html;
         index index.html; 
     }
-    ${SSL_CONFIG}
 
 }
