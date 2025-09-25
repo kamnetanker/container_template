@@ -17,7 +17,7 @@ if [ "$SSL_MODE" = "self" ]; then
     ssl_certificate /etc/nginx/ssl/self-signed.crt;
     ssl_certificate_key /etc/nginx/ssl/self-signed.key;
   " 
-  envsubst < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
+  envsubst '$LISTEN_ADDR $HTTP_PORT $SSL_CONFIG $DOMAIN' < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
 
   # Создание директории для хранения сертификатов
   echo "📁 Создаём директорию для сертификатов: /etc/nginx/ssl" 
@@ -46,7 +46,7 @@ elif [ "$SSL_MODE" = "certbot" ]; then
     ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
   "
-  envsubst < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
+  envsubst '$LISTEN_ADDR $HTTP_PORT $SSL_CONFIG $DOMAIN' < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
 
   # Если сертификаты для домена ещё не получены, запрашиваем их
   if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
@@ -64,5 +64,5 @@ elif [ "$SSL_MODE" = "certbot" ]; then
 else
   echo "ℹ️ SSL_MODE не указан или не поддерживается. Используем конфигурацию без SSL."
   export SSL_CONFIG=""
-  envsubst < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
+  envsubst '$LISTEN_ADDR $HTTP_PORT $SSL_CONFIG $DOMAIN' < "/etc/config-templates/nginx.conf.template" > "/etc/nginx/sites-enabled/default.conf"
 fi
